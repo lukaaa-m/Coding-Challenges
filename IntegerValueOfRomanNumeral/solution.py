@@ -17,35 +17,61 @@ def splitIntoParts(s):
     print(s)
 
     parts = []
+    rem_digits = [x for x in s] #copy of solution array
 
     #Remove digits as they are added to a part
     #Make temporary copy of list?
 
-    for i, num in enumerate(s):
+    for i, num in enumerate(rem_digits):
         part = []
-        #if next digit is same
-        if s[i+1] == num:
-            #if it is possible for number to be repeated thrice
-            if num in trip_repeatable:
-                #if the next two numbers are same
-                if s[i+2] == num:
-                    #add to part
-                    part.append(s[i:i+2])
-            #if there are two consecutive, add to part
-            part.append(s[i:i+1])
-        print(part)
+        #if not the last element
+        if i != (len(rem_digits)-1):
+            #if next digit is same
+            if num == rem_digits[i+1]:
+                #if number can be repeated twice
+                if num in trip_repeatable:
+                    #if it is repeated three times
+                    if num == rem_digits[i+2]:
+                        #add next three digits to part
+                        part.append(rem_digits[i:i+2])
+                        del rem_digits[i:i+2]
+                        continue
+                #add next two digits to part
+                part.append(rem_digits[i:i+1])
+                del rem_digits[i:i+1]
+                continue
 
+            #if digit is smaller than next digit
+            if num < rem_digits[i+1]:
+                #add both digits to new part
+                part.append(rem_digits[i:i+1])
+                del rem_digits[i:i+1]
+                continue
+        
+        #if digit is standalone (not subtracted)
+        if i == (len(rem_digits)-1) and len(rem_digits) == 1:
+            part.append(rem_digits[i])
+            del rem_digits[i]
+            continue
+    
         parts.append(part)
 
-    return parts
+    print(parts)
+    return(parts)
+
 
 def evaluateParts(parts):
     #If smaller value is before larger in part, subtract
     #If larger value is before smaller in part, add
+    total = 0
     for part in parts:
-        pass
+        if len(part) > 1:
+            if part[0] < part[1]:
+                total += part[1] - part[0]
+        else:
+            total += sum(part)
 
-    pass
+    return total
 
 def integerValueOfRomanNumeral(s):
     output = evaluateParts(splitIntoParts(s))
