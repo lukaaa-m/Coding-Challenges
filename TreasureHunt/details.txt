@@ -1,0 +1,4 @@
+Challenge Name: Treasure Hunt
+Language: Python
+Website: N/A (For Digital Solutions class)
+Link: N/A
