@@ -1,0 +1,5 @@
+Challenge Name: Text Wrap
+Language: Python
+Website: HackerRank
+Link: https://www.hackerrank.com/challenges/text-wrap/problem
+Description: Given a string and width, wrap the string into paragraph of specificed width
